@@ -14,7 +14,7 @@ Each services in the application is designed to run on docker containers.
 
 *Note: The current version of the application is designed to run on Ubuntu 16.04 if you are using a Linux Server.*
 
-
+![Dashboard](https://github.com/deyrakesh85/Docker/blob/develop/devops-dashboard.jpg)
 
 
 ## Running the Application ##
