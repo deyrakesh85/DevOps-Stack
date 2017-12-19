@@ -1,0 +1,63 @@
+---
+ - name: Set Up Working Environment
+   hosts: Server
+   become: yes
+   become_method: sudo
+   tasks:
+
+    - name: Update apt cache
+      shell: apt-get update
+
+    - name: Install Dependencies
+      apt: name={{item}} state=installed
+      with_items:
+        - apt-transport-https
+        - ca-certificates
+        - curl
+        - software-properties-common
+
+    - name: ensure repository key is installed
+      shell: curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+    - name: ensure docker registry is available
+      shell: add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu  $(lsb_release -cs)  stable"
+
+    - name: Update apt cache
+      shell: apt-get update
+
+    - name: ensure docker and dependencies are installed
+      apt: name=docker-ce state=present
+
+    - name: Download Docker-compose
+      shell: curl -L https://github.com/docker/compose/releases/download/1.17.0/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
+
+    - name: Apply Permission
+      shell: chmod +x /usr/local/bin/docker-compose
+  
+    - name: Get application files
+      get_url:
+        url: https://github.com/deyrakesh85/DevOps-Stack-Docker/archive/0.1.tar.gz
+        dest: /usr/src/devops-stack-docker.tar.gz
+        mode: 0755
+
+    - name: Extract application
+      unarchive:
+        src: /usr/src/devops-stack-docker.tar.gz
+        dest: /usr/src
+        copy: no
+
+    - name: Set Permission
+      file:
+        path: /usr/src/DevOps-Stack-Docker-0.1
+        state: directory
+        mode: 0755
+        recurse: yes
+
+    - name: Run SetUp file
+      shell: /usr/src/DevOps-Stack-Docker-0.1/setup.sh
+      args:
+        executable: /bin/bash
+        chdir: /usr/src/DevOps-Stack-Docker-0.1/
+      register: application 
+    - debug: msg="{{ application.stdout }}"
+    - debug: msg="{{ application.stderr }}"
