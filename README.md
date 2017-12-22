@@ -54,7 +54,7 @@ This application is designed to give you the fexibility to run it in different w
      7. Wait for the command to complete. It might take sometime depending on the internet speed.
      8. After a while, you should get a nice dashboard if you access http://192.168.21.11
      
-   ###### Configure in a Remote VM ###### 
+   ###### Configure on a Remote VM ###### 
 
        1. Login to the Server.
        2. Download the latest version of the project from the Releases section and un-archieve it.
