@@ -19,7 +19,7 @@ Each services in the application is designed to run on docker containers.
 
 ## Running the Application ##
 
-This application is designed to give you the fexibility to it in different ways as per your requirement.
+This application is designed to give you the fexibility to run it in different ways as per your requirement.
 
 ### Windows: ###
 
@@ -34,12 +34,37 @@ This application is designed to give you the fexibility to it in different ways 
    
 ### Ubuntu Server ###
 
-  #### Docker installed system ####
+  #### Setup with Docker ####
   
+    1. Login to the server.
+    2. Download the latest version of the project from the Releases section and un-archieve it.
+    3. Run the setup script setup-with-docker.sh (./setup-with-docker.sh)
+    4. Wait for the command to complete. It might take sometime depending on the internet speed.
+    5. After a while, you should get a nice dashboard if you access http://192.168.21.11
   
-  
-  #### Bare Ubuntu VM ####
+  #### Setup with Ansible ####
    ###### Configure locally ######
      
+     1. Login to the server.
+     2. Download the latest version of the project from the Releases section and un-archieve it.
+     3. If ansible is not installed in your system, run the installation script install_ansible.sh (./install_ansible.sh)
+     4. Verify if ansible is properly installed with the command " ansible --version ". You should get the version and path information. if ansible is properly installed.
+     5. Modify the "hosts" file under the directory "inventory". Delete the IP and enter "localhost" under [Server]  
+     6. Run the setup script setup-with-ansible.sh (./setup-with-ansible.sh). Enter "1" to setup locally.
+     7. Wait for the command to complete. It might take sometime depending on the internet speed.
+     8. After a while, you should get a nice dashboard if you access http://192.168.21.11
      
    ###### Configure in a Remote VM ###### 
+
+       1. Login to the Server.
+       2. Download the latest version of the project from the Releases section and un-archieve it.
+       3. If ansible is not installed in your system, run the installation script install_ansible.sh (./install_ansible.sh)
+       4. Verify if ansible is properly installed with the command " ansible --version ". You should get the version and path information. if ansible is properly installed.
+       5. Modify the "hosts" file under the directory "inventory". Delete the IP and enter the IP of your remote server under [Server] where you want to configure DevOps-Stack.
+       6. Setup password less ssh connectivity with the remote server.
+       7. Run the setup script setup-with-ansible.sh (./setup-with-ansible.sh). Enter "2" to setup on a remote server.
+       8. Enter the user you want to connect the remote server as.
+       9. Wait for the command to complete. It might take sometime depending on the internet speed.
+       10. After a while, you should get a nice dashboard if you access http://<remote server ip>
+       
+       
